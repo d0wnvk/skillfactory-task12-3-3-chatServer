@@ -27,6 +27,10 @@ public class Client implements Runnable {
         out.println(message);
     }
 
+    public int getClientNumber() {
+        return clientNumber;
+    }
+
     @Override
     public void run() {
         try {
@@ -36,11 +40,11 @@ public class Client implements Runnable {
             in = new Scanner(is);
             out = new PrintStream(os);
 
-            out.println("Welcome to chat =)");
+            out.println("Welcome to chat. I am client with number " + clientNumber);
             String input = in.nextLine();
 
             while (!input.equals("bye")) {
-                server.sendAll("Client # " + clientNumber + " says : " + input);
+                server.sendAll(clientNumber, "Client # " + clientNumber + " says : " + input);
                 input = in.nextLine();
             }
             socket.close();

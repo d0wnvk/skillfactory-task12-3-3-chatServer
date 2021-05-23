@@ -8,15 +8,18 @@ import java.util.ArrayList;
 public class ChatServer {
 
     ArrayList<Client> clients = new ArrayList<>();
-    ServerSocket serverSocket ;
+    ServerSocket serverSocket;
 
     public ChatServer() throws IOException {
         this.serverSocket = new ServerSocket(1234);
     }
 
-    void sendAll(String message) {
+    void sendAll(int clientNumber, String message) {
         for (Client client : clients) {
-            client.receive(message);
+
+            if (client.getClientNumber() != clientNumber) {
+                client.receive(message);
+            }
         }
     }
 
@@ -43,7 +46,6 @@ public class ChatServer {
         new ChatServer().run();
 
     }
-
 
 
 }
